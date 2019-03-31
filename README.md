@@ -33,6 +33,6 @@ npm run sass
 
 ## __*Authors*__
 
-[**Guilherme Almeida**](https://guisalmeda.com)
+[**Guilherme Almeida**](https://guisalmeida.com)
 
 See also the list of [contributors](https://github.com/GuiSAlmeida/Imagiflix/contributors) who participated in this project.
