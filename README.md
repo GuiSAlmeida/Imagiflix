@@ -2,13 +2,13 @@
 
 >Imagiflix is a fictional site inspired by Netflix, which is being created to study the practices of html5, css3, JS, sass, ajax and other knowledge.
 
----
+
 ## __*Prerequisites*__
 
 You should have installed the [node.js](https://nodejs.org/en/).
 
 
----
+
 ## __*Installation*__
 
 Use the [npm](https://www.npmjs.com/) to install dependencies.
@@ -16,7 +16,7 @@ Use the [npm](https://www.npmjs.com/) to install dependencies.
 ```node
 npm install
 ```
----
+
 ## __*Usage*__
 
 Use the comand to compile scss to css.
@@ -25,14 +25,14 @@ Use the comand to compile scss to css.
 npm run sass
 ```
   
----
+
 ## __*Built With*__
 
 * [JQUERY](http://jquery.com/) - The JS Lib used.
 * [SLICK](http://kenwheeler.github.io/slick/) - Used to generate carousel images.
----
+
 ## __*Authors*__
 
 [**Guilherme Almeida**](https://guisalmeda.com)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/GuiSAlmeida/Imagiflix/contributors) who participated in this project.
