@@ -149,17 +149,51 @@ button {
   width: 220px;
 }
 .header__profile {
+  position: relative;
   margin-left: 30px;
 }
 .header__avatar {
   display: flex;
   align-items: center;
+  margin: 10px 0;
 }
 .header__avatar img {
   margin-right: 10px;
 }
 .header__avatar i {
   font-size: 1.125rem;
+}
+.header__dropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background: #141414;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  padding: 20px;
+  min-width: 170px;
+  opacity: 0;
+  height: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+.header__dropdown li {
+  font-size: 0.875rem;
+}
+.header__dropdown li:nth-child(1) {
+  margin-bottom: 20px;
+}
+.header__dropdown a {
+  color: white;
+  text-decoration: none;
+}
+.header__dropdown a:hover {
+  text-decoration: underline;
+}
+.header__profile:hover .header__dropdown {
+  opacity: 1;
+  visibility: visible;
+  height: 90px;
 }
 
 .backdrop {
@@ -283,6 +317,23 @@ button {
 .movies-list .slick-list {
   padding: 40px 0;
 }
+.movies-list .slick-arrow {
+  position: absolute;
+  top: 30px;
+  background-color: rgba(20, 20, 20, 0.7);
+  height: calc(100% - 60px);
+  color: white;
+  font-size: 2.5rem;
+  border: 0;
+  z-index: 2;
+  cursor: pointer;
+}
+.movies-list .slick-arrow.slick-prev {
+  left: 0;
+}
+.movies-list .slick-arrow.slick-next {
+  right: 0;
+}
 
 .movies-list__item {
   position: relative;
@@ -333,6 +384,47 @@ button {
   100% {
     text-shadow: 0 0 20px #e50914;
   }
+}
+.footer {
+  max-width: 1140px;
+  width: 100%;
+  margin: 100px auto 0;
+}
+.footer__social {
+  display: flex;
+}
+.footer li {
+  font-size: 1.875rem;
+  margin-right: 20px;
+}
+.footer a {
+  color: rgba(255, 255, 255, 0.4);
+  transition: all 0.3s ease;
+}
+.footer a:hover {
+  color: white;
+}
+.footer__menus {
+  display: flex;
+  margin-top: 30px;
+  justify-content: space-between;
+}
+.footer__menu li {
+  font-size: 0.875rem;
+  margin-bottom: 10px;
+}
+.footer__menu a {
+  color: rgba(255, 255, 255, 0.4);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.footer__menu a:hover {
+  color: white;
+}
+.footer__credits {
+  margin: 20px 0;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.4);
 }
 
 /*# sourceMappingURL=style.css.map */

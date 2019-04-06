@@ -86,12 +86,14 @@
     }
 
     &__profile {
+        position: relative;
         margin-left: 30px;
     }
 
     &__avatar {
         display: flex;
         align-items: center;
+        margin: 10px 0;
 
         img {
             margin-right: 10px;
@@ -101,4 +103,44 @@
             @include font-size(18);
         }
     }
+
+    &__dropdown {
+        position: absolute;
+        right: 0;
+        top: 100%;
+        background: $dark;
+        border: 1px solid rgba($white, .3);
+        border-radius: 4px;
+        padding: 20px;
+        min-width: 170px;
+        opacity: 0;
+        height: 0;
+        visibility: hidden;
+        transition: all .3s ease;
+
+        li {
+            @include font-size(14);
+            &:nth-child(1) {
+                margin-bottom: 20px;
+            }
+        }
+
+        a {
+            color: $white;
+            text-decoration: none;
+            
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    &__profile:hover {
+        .header__dropdown {
+            opacity: 1;
+            visibility: visible;
+            height: 90px;
+        }
+    }
+
 }
