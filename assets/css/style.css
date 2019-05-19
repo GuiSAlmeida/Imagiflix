@@ -168,7 +168,7 @@ button {
   right: 0;
   top: 100%;
   background: #141414;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid white;
   border-radius: 4px;
   padding: 20px;
   min-width: 170px;
