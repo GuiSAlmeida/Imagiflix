@@ -5,6 +5,30 @@
 
     &__social {
         display: flex;
+        align-items: flex-end;
+    }
+    
+    &__tmdb {
+        display: flex;
+        justify-content: flex-end;
+        flex-direction: column;
+        align-items: flex-end;
+        margin-top: -100px;
+
+        a {
+            text-align: right;
+
+            img {
+                width: 40%;
+                height: auto;
+            }
+        }
+
+        .footer__credits {
+            margin: 20px 0 0;
+            width: 50%;
+            text-align: right;
+        }
     }
 
     li {
@@ -48,6 +72,5 @@
         margin: 20px 0;
         @include font-size(12);
         color: rgba($white, .4);
-
     }
 }
