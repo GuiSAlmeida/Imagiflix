@@ -28,6 +28,7 @@ npm run sass
 
 ## __*Built With*__
 
+* [TMDb](https://www.themoviedb.org) - The API of consuming data.
 * [JQUERY](http://jquery.com/) - The JS Lib used.
 * [SLICK](http://kenwheeler.github.io/slick/) - Used to generate carousel images.
 
