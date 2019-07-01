@@ -1,4 +1,4 @@
-$(function() {
+window.onload = function () {
 
     $(".movies-list__slider").slick({
         variableWidth: true,
@@ -19,31 +19,32 @@ $(function() {
 
     // AJAX
 
-    $.ajax(getMovies).done(function(res){
-        mountFeatured(res.results);  
-        res.results.shift();
-        mountCarousel(res.results, "#movies-slider");
-    });
+    ajax(getMovies)
+        .then(function(response) {
+            mountFeatured(response.results)
+            response.results.shift();
+            mountCarousel(response.results, "#movies-slider");
+        })
+        .catch(function() {
+            console.warn("erro requisição");
+        });
 
-    $.ajax(getTV).done(function(res){
-        mountCarousel(res.results, "#series-slider");
-    });
 
-    $.ajax(getFamily).done(function(res){
-        mountCarousel(res.results, "#family-slider");
-    });
+    ajax(getTV)
+        .then(function(response) {
+            mountCarousel(response.results, "#series-slider");
+        })
+        .catch(function() {
+            console.warn("erro requisição");
+        });
 
-    //    LOADER
-    
-    $(document).ajaxComplete(function(){
-        setTimeout(function(){
-            $("#loading").fadeOut();
-        }, 300)
-    });
-
-    $(document).ajaxStart(function(){
-        $("#loading").fadeIn();
-    });
+    ajax(getFamily)
+        .then(function(response) {
+            mountCarousel(response.results, "#family-slider");
+        })
+        .catch(function() {
+            console.warn("erro requisição");
+        });
     
 
     // INTERACTIONS
@@ -149,7 +150,7 @@ $(function() {
                                         <div class="rating__score">${vote}</div>
                                     </div>
                                 </div>
-                            </div>`
+                            </div>`;
 
             $(slider).slick("slickAdd", template);
         });
@@ -183,6 +184,29 @@ $(function() {
 
     };
 
+    function ajax(url) {
+        return new Promise(function (resolve, reject) {
+
+            fadeIn(document.getElementById("loading"));
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', url);
+
+            xhr.onreadystatechange = function () {
+                fadeOut(document.getElementById("loading"));
+    
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        resolve(JSON.parse(xhr.responseText));
+                    } else {
+                        reject();
+                    }
+                };
+            };
+            xhr.send(null);
+        });
+    };
+
+
     // fadein & fadeout vanilla
     function fadeIn(element, time){
         procedure(element, time, 0, 100);
@@ -215,4 +239,4 @@ $(function() {
             }
         }, time * 10);
     }
-});
+};
