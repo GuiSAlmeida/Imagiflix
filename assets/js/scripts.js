@@ -6,6 +6,11 @@ window.onload = function () {
         nextArrow: '<button type="button" class="slick-next"><i class="fas fa-chevron-right"></i></button>'
     });
 
+    if (document.readyState /= "complete") {
+        fadeIn(document.getElementById("loading"));
+    } else {
+        fadeOut(document.getElementById("loading"));
+    };
     
     const API = "https://api.themoviedb.org/3";
     const KEY = "527fecb66c1463176173eb8a85882ac7";
@@ -13,51 +18,80 @@ window.onload = function () {
     const BACKDROP = URL_IMAGE + "original";
     const POSTER = URL_IMAGE + "w342";
     
+    // AJAX
+    
     const getMovies = API + "/discover/movie" + "?api_key=" + KEY + "&language=pt-br";
     const getTV = API + "/discover/tv" + "?api_key=" + KEY + "&language=pt-br";
     const getFamily = getMovies + "&with_genres=10751";
-
-    // AJAX
-
+    
     ajax(getMovies)
         .then(function(response) {
             mountFeatured(response.results)
             response.results.shift();
             mountCarousel(response.results, "#movies-slider");
         })
-        .catch(function() {
-            console.warn("erro requisição");
+        .catch(function(reject) {
+            console.warn(reject);
+            console.log("erro requisição");
         });
-
 
     ajax(getTV)
         .then(function(response) {
             mountCarousel(response.results, "#series-slider");
         })
-        .catch(function() {
-            console.warn("erro requisição");
+        .catch(function(reject) {
+            console.warn(reject);
+            console.log("erro requisição");
         });
 
     ajax(getFamily)
         .then(function(response) {
             mountCarousel(response.results, "#family-slider");
         })
-        .catch(function() {
-            console.warn("erro requisição");
+        .catch(function(reject) {
+            console.warn(reject);
+            console.log("erro requisição");
         });
     
 
     // INTERACTIONS
 
-    $("#play-featured, .movies-list__slider").click(function(e) {
+    document.getElementById("play-featured").onclick = function() {
+        let idMedia = this.getAttribute("data-id");
+        let type = this.getAttribute("data-type");
+        
+        fadeIn(document.getElementById("modal"), 0.2);
+        
+        setTimeout(function() {
+            document.getElementById("wrap").classList.add("blur");
+        }, 200);
+
+        document.querySelector("body").style.overflow = "hidden";
+    
+        ajax(API + "/" + type + "/" + idMedia + "?api_key=" + KEY + "&language=pt-br")
+            .then(function(response){
+                mountModal(response);
+            })
+            .catch(function(reject) {
+                console.warn(reject);
+                console.log("erro requisição");
+            });        
+    };
+        
+    const listSliderMovies = document.querySelectorAll(".movies-list__slider")[0];
+    const listSliderTV = document.querySelectorAll(".movies-list__slider")[1];
+    const listSliderFamily = document.querySelectorAll(".movies-list__slider")[2];
+
+    listSliderMovies.onclick = function(e) {
+        console.log(e);
         let idMedia, type;
 
         if (this.hasAttribute("data-id")) {
             idMedia = this.getAttribute("data-id");
             type = this.getAttribute("data-type");
         } else {
-            idMedia = $(e.target).closest("[data-id]").data("id");
-            type = $(e.target).closest("[data-type]").data("type");
+            idMedia = e.target.parentNode.parentNode.getAttribute("data-id");
+            type = e.target.parentNode.parentNode.getAttribute("data-type");
         };
 
         if (idMedia) {
@@ -72,30 +106,86 @@ window.onload = function () {
                     mountModal(res);
             });
         };
-    });
+    };
 
+    listSliderTV.onclick = function(e) {
+        console.log(e);
+        let idMedia, type;
+
+        if (this.hasAttribute("data-id")) {
+            idMedia = this.getAttribute("data-id");
+            type = this.getAttribute("data-type");
+        } else {
+            idMedia = e.target.parentNode.parentNode.getAttribute("data-id");
+            type = e.target.parentNode.parentNode.getAttribute("data-type");
+        };
+
+        if (idMedia) {
+            fadeIn(document.getElementById("modal"), 0.2);
+            setTimeout(function() {
+                document.getElementById("wrap").classList.add("blur");
+            }, 200);
+            document.querySelector("body").style.overflow = "hidden";
+    
+            $.ajax(API + "/" + type + "/" + idMedia + "?api_key=" + KEY + "&language=pt-br")
+                .done(function(res){
+                    mountModal(res);
+            });
+        };
+    };
+
+    listSliderFamily.onclick = function(e) {
+        console.log(e);
+        let idMedia, type;
+
+        if (this.hasAttribute("data-id")) {
+            idMedia = this.getAttribute("data-id");
+            type = this.getAttribute("data-type");
+        } else {
+            idMedia = e.target.parentNode.parentNode.getAttribute("data-id");
+            type = e.target.parentNode.parentNode.getAttribute("data-type");
+        };
+
+        if (idMedia) {
+            fadeIn(document.getElementById("modal"), 0.2);
+            setTimeout(function() {
+                document.getElementById("wrap").classList.add("blur");
+            }, 200);
+            document.querySelector("body").style.overflow = "hidden";
+    
+            $.ajax(API + "/" + type + "/" + idMedia + "?api_key=" + KEY + "&language=pt-br")
+                .done(function(res){
+                    mountModal(res);
+            });
+        };
+    };
     
     document.querySelector("#modal .modal__poster").onclick = function() {
-
         const type = this.getAttribute("data-type");
         const id = this.getAttribute("data-id");
 
-        $.ajax(API + "/" + type + "/" + id + "/videos?api_key=" + KEY + "&language=pt-br")
-            .done(function(res) {
+        ajax(API + "/" + type + "/" + id + "/videos?api_key=" + KEY + "&language=pt-br")
+            .then(function(response) {
                 fadeIn(document.getElementById("player"), 0.2);
-                if (res.results[0]) {
-                    console.log(res.results.length);
-                    const idVideo = res.results[0].key;
+                if (response.results[0]) {
+                    console.log(response.results.length);
+                    const idVideo = response.results[0].key;
                     
                     const video = '<iframe src="https://www.youtube.com/embed/' + idVideo + '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
     
-                    $("#player .player-content").html(video);
-                    $("#player iframe").css("width", window.innerWidth).css("height", window.innerHeight);
+                    document.querySelector("#player .player-content").innerHTML = video;
+                    document.querySelector("#player iframe").style.width = window.innerWidth+"px";
+                    document.querySelector("#player iframe").style.height = window.innerHeight+"px";
+
                 } else {
-                    $("#player .player-content").html("<h3>Vídeo indisponivel :(</h3>");
-                    console.log(res.results[0]);
-                }
-            });
+                    document.querySelector("#player .player-content").innerHTML = '<h3>Vídeo indisponivel :(</h3>';
+                    console.log(response.results[0]);
+                };
+            })
+            .catch(function(reject) {
+                console.warn(reject);
+                console.log("erro requisição");
+            })
     };
 
     document.getElementById("close-modal").onclick = function() {
@@ -108,12 +198,17 @@ window.onload = function () {
     };
 
     document.getElementById("close-player").onclick = function() {
+        let iframe = document.querySelector('.player-content').firstChild;
+        iframe.parentNode.removeChild(iframe);
         fadeOut(this.parentElement, 0.2);
     };    
     
+    
     window.addEventListener("resize", function() {
-        document.querySelector("#player iframe").style.width = window.innerWidth+"px";
-        document.querySelector("#player iframe").style.height = window.innerHeight+"px";
+        if(document.querySelector("#player iframe")) {
+            document.querySelector("#player iframe").style.width = window.innerWidth+"px";
+            document.querySelector("#player iframe").style.height = window.innerHeight+"px";
+        }
     });
     
     
@@ -187,13 +282,10 @@ window.onload = function () {
     function ajax(url) {
         return new Promise(function (resolve, reject) {
 
-            fadeIn(document.getElementById("loading"));
             let xhr = new XMLHttpRequest();
             xhr.open('GET', url);
-
             xhr.onreadystatechange = function () {
-                fadeOut(document.getElementById("loading"));
-    
+                
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
                         resolve(JSON.parse(xhr.responseText));
@@ -205,7 +297,6 @@ window.onload = function () {
             xhr.send(null);
         });
     };
-
 
     // fadein & fadeout vanilla
     function fadeIn(element, time){
