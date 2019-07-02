@@ -95,10 +95,14 @@ window.onload = function () {
             }, 200);
             document.querySelector("body").style.overflow = "hidden";
     
-            $.ajax(API + "/" + type + "/" + idMedia + "?api_key=" + KEY + "&language=pt-br")
-                .done(function(res){
-                    mountModal(res);
-            });
+            ajax(API + "/" + type + "/" + idMedia + "?api_key=" + KEY + "&language=pt-br")
+                .then(function(response){
+                    mountModal(response);
+                })
+                .catch(function(reject) {
+                    console.warn(reject);
+                    console.log("erro requisição");
+                }); 
         };
     };
 
@@ -121,10 +125,14 @@ window.onload = function () {
             }, 200);
             document.querySelector("body").style.overflow = "hidden";
     
-            $.ajax(API + "/" + type + "/" + idMedia + "?api_key=" + KEY + "&language=pt-br")
-                .done(function(res){
-                    mountModal(res);
-            });
+            ajax(API + "/" + type + "/" + idMedia + "?api_key=" + KEY + "&language=pt-br")
+                .then(function(response){
+                    mountModal(response);
+                })
+                .catch(function(reject) {
+                    console.warn(reject);
+                    console.log("erro requisição");
+                }); 
         };
     };
 
@@ -147,10 +155,14 @@ window.onload = function () {
             }, 200);
             document.querySelector("body").style.overflow = "hidden";
     
-            $.ajax(API + "/" + type + "/" + idMedia + "?api_key=" + KEY + "&language=pt-br")
-                .done(function(res){
-                    mountModal(res);
-            });
+            ajax(API + "/" + type + "/" + idMedia + "?api_key=" + KEY + "&language=pt-br")
+                .then(function(response){
+                    mountModal(response);
+                })
+                .catch(function(reject) {
+                    console.warn(reject);
+                    console.log("erro requisição");
+                }); 
         };
     };
     
