@@ -5,12 +5,6 @@ window.onload = function () {
         prevArrow: '<button type="button" class="slick-prev"><i class="fas fa-chevron-left"></i></button>',
         nextArrow: '<button type="button" class="slick-next"><i class="fas fa-chevron-right"></i></button>'
     });
-
-    if (document.readyState /= "complete") {
-        fadeIn(document.getElementById("loading"));
-    } else {
-        fadeOut(document.getElementById("loading"));
-    };
     
     const API = "https://api.themoviedb.org/3";
     const KEY = "527fecb66c1463176173eb8a85882ac7";
@@ -281,6 +275,7 @@ window.onload = function () {
 
     function ajax(url) {
         return new Promise(function (resolve, reject) {
+            document.getElementById("loading").style.display = "block";
 
             let xhr = new XMLHttpRequest();
             xhr.open('GET', url);
@@ -288,13 +283,15 @@ window.onload = function () {
                 
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
+                        document.getElementById("loading").style.display = "none";
                         resolve(JSON.parse(xhr.responseText));
                     } else {
-                        reject();
+                        console.warn(xhr.status);
+                        console.log("erro requisição");
                     }
                 };
             };
-            xhr.send(null);
+            xhr.send();
         });
     };
 

@@ -28,6 +28,7 @@
     left: 0;
     background-color: rgba($dark, 0.8);
     transition: all .3s ease;
+    display: none;
 
     &::before {
         content: "";
