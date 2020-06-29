@@ -362,9 +362,9 @@ button {
 }
 .movies-list .slick-arrow {
   position: absolute;
-  top: 30px;
+  top: 42px;
   background-color: rgba(20, 20, 20, 0.7);
-  height: calc(100% - 60px);
+  height: calc(100% - 80px);
   color: white;
   font-size: 2.5rem;
   border: 0;

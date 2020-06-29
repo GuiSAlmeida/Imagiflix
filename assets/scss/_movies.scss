@@ -11,9 +11,9 @@
 
     .slick-arrow {
         position: absolute;
-        top: 30px;
+        top: 42px;
         background-color: rgba($dark, .7);
-        height: calc(100% - 60px);
+        height: calc(100% - 80px);
         color: $white;
         @include font-size(40);
         border: 0;
